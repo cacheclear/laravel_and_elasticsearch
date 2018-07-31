@@ -67,6 +67,21 @@ class ElasticsearchArticlesRepository implements ArticlesRepository
         }, $hits);
 
         // We have to convert the results array into Eloquent Models.
+
+        /*
+         * We opted for hydrating the models with the documents we got from Elasticsearch.
+         * This is only possible because we are indexing the whole model as it came from the
+         * database (our single source of truth) using the $article->toArray(). Although we
+         * might gain some time with this, it might be limiting in another scenario. Another
+         * way of doing this is doing a Article::find($ids) using the IDs that came in the
+         * Elasticsearch documents. Since IDs are indexed, chances are it’s faster when you
+         * perform the query/filtering on Elasticsearch and load the models from the database
+         * than performing the whole query/filtering in the Database itself. Using find($ids)
+         * instead of hydrate($sources would also allow you to change the schema in a way
+         * that makes sense and facilitates your searches vs. fighting the schema to build
+         * a more complex search.
+         */
+
         return Article::hydrate($sources);
     }
 }
