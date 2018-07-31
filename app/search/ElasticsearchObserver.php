@@ -6,6 +6,8 @@ use Elasticsearch\Client;
 
 class ElasticsearchObserver
 {
+    use Searchable;
+
     private $elasticsearch;
 
     public function __construct(Client $elasticsearch)
