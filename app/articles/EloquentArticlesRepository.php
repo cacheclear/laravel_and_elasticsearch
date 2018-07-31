@@ -6,9 +6,10 @@
  * Time: 16:42
  */
 
-namespace App\articles;
+namespace App\Articles;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\Article;
 
 class EloquentArticlesRepository implements ArticlesRepository
 {
